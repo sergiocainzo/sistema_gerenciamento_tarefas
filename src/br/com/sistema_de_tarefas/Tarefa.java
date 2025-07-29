@@ -2,8 +2,11 @@ package br.com.sistema_de_tarefas;
 
 public class Tarefa {
 
+    // Contador sequencial
+    private static long proximoID = 1;
+
     // atributos
-    protected int uuid;
+    protected long uuid;
     protected String titulo;
     protected String descricao;
     protected int dataVencimento;
@@ -12,6 +15,7 @@ public class Tarefa {
 
     // Construtor
     public Tarefa(String titulo, String descricao, int dataVencimento) {
+        this.setUuid(proximoID++);
         this.setTitulo(titulo);
         this.setDescricao(descricao);
         this.setDataVencimento(dataVencimento);
@@ -20,11 +24,11 @@ public class Tarefa {
     }
 
     // Metodos Getter and Setter
-    public int getUuid() {
+    public long getUuid() {
         return uuid;
     }
 
-    public void setUuid(int uuid) {
+    public void setUuid(long uuid) {
         this.uuid = uuid;
     }
 
@@ -69,10 +73,6 @@ public class Tarefa {
     }
 
     // Metodos Personalizados
-
-
-
-
 
     // Exibição na tela
     @Override
