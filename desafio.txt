@@ -1,0 +1,56 @@
+## Desafio Backend Júnior em Java com POO: Sistema de Gerenciamento de Tarefas
+# Contexto:
+Você foi contratado como desenvolvedor backend júnior em uma startup que está criando um sistema de gerenciamento de tarefas. Sua primeira missão é desenvolver a API para gerenciar as tarefas, focando nos princípios de Programação Orientada a Objetos (POO) em Java.
+
+
+Requisitos Funcionais:
+Seu sistema deve ser capaz de:
+
+Criar Tarefa: Adicionar uma nova tarefa com os seguintes dados:
+ID: Gerado automaticamente (ex: UUID ou um contador sequencial).
+Título: Texto curto que descreve a tarefa (obrigatório).
+Descrição: Texto mais detalhado sobre a tarefa (opcional).
+Data de Vencimento: Data limite para a conclusão da tarefa (opcional).
+Prioridade: Nível de importância (ex: BAIXA, MÉDIA, ALTA - use um enum). Padrão: MÉDIA.
+Status: Situação atual da tarefa (ex: PENDENTE, EM_ANDAMENTO, CONCLUIDA - use um enum). Padrão: PENDENTE.
+
+
+Listar Todas as Tarefas: Retornar uma lista de todas as tarefas cadastradas.
+Buscar Tarefa por ID: Retornar os detalhes de uma tarefa específica, dado seu ID.
+Atualizar Tarefa: Modificar os dados de uma tarefa existente, dado seu ID. Os campos podem ser atualizados individualmente ou em conjunto.
+Excluir Tarefa: Remover uma tarefa do sistema, dado seu ID.
+
+
+Requisitos Técnicos e de POO:
+Estrutura de Projeto: Organize seu código em pacotes lógicos (ex: model, service, repository, etc.).
+Classes e Objetos:
+Crie uma classe Tarefa (ou Task) que represente uma tarefa no sistema. Esta classe deve conter os atributos listados nos requisitos funcionais (ID, Título, Descrição, etc.), seus respectivos getters e setters, e um construtor adequado.
+Utilize enums para os atributos Prioridade e Status.
+Encapsulamento: Certifique-se de que os atributos das classes sejam privados e acessados apenas através de métodos públicos (getters e setters).
+Serviço/Lógica de Negócio: Crie uma classe de serviço (ex: TarefaService) que contenha a lógica para manipular as tarefas (criar, listar, buscar, atualizar, excluir). Esta classe deve ser responsável por toda a validação de dados e regras de negócio.
+Persistência (Simulada): Para este desafio júnior, não é necessário usar um banco de dados real. Você pode simular a persistência de dados utilizando uma ArrayList ou um HashMap em memória dentro da sua classe de serviço. Por exemplo, um HashMap<String, Tarefa> onde a chave é o ID da tarefa e o valor é o objeto Tarefa.
+A cada execução do programa, os dados serão perdidos. Isso é esperado para este desafio.
+Tratamento de Erros/Exceções: Implemente um tratamento básico para casos como:
+Tentativa de buscar, atualizar ou excluir uma tarefa que não existe (lançar uma exceção ou retornar null/uma mensagem de erro).
+Título da tarefa vazio ao tentar criar uma tarefa.
+
+
+
+Desafios Extras (Opcionais, para quem quer ir além):
+
+Filtragem e Ordenação:
+Modifique a funcionalidade de "Listar Todas as Tarefas" para permitir filtragem por Status e/ou Prioridade.
+Adicione a opção de ordenar a lista de tarefas por Data de Vencimento (se existir) ou Prioridade.
+Validações Mais Robustas:
+Validação de formato de data de vencimento.
+Validação de limites para o título e descrição.
+Testes Unitários: Escreva testes unitários simples usando JUnit para as suas classes de modelo (Tarefa) e de serviço (TarefaService).
+
+
+
+Como Entregar (Sugestão):
+Crie um projeto Maven ou Gradle.
+Organize seu código-fonte nas pastas src/main/java.
+Se for fazer os desafios extras, inclua os testes em src/test/java.
+Você pode usar um main simples para simular a interação com o seu sistema (chamando os métodos da classe de serviço).
+Este desafio testará sua compreensão dos fundamentos de Java, especialmente POO, e sua capacidade de estruturar um pequeno sistema backend. Boa sorte!
