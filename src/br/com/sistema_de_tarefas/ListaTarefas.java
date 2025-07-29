@@ -18,6 +18,7 @@ public class ListaTarefas {
         System.out.println("\t--- Buscando por ID ---");
         if (listaTarefas.isEmpty()) {
             System.out.println("A lista de tarefas está vazia.");
+            System.out.println(String.format("\t------------------------\n"));
             return;
         }
 
@@ -61,35 +62,50 @@ public class ListaTarefas {
     // Adicionar Terafas
     public void adicionarTarefa(Tarefa tarefa) {
         System.out.println("\t--- Adicionando Tarefa ---");
-        // Caso um dos itens não seja adicionado
-        if (tarefa.getTitulo() == null || tarefa.getDescricao() == null) {
-            System.out.println(String.format("Os campos 'Titulo' e 'Descrição' são obrigatórios."));
-            return;
-        }
 
         // Adicionando à lista de Tarefas
         try {
-            System.out.println(String.format("Adicionando tarefa: %s.", tarefa.titulo));
+            // Caso um dos itens não seja adicionado
+            if (tarefa.getTitulo() == null || tarefa.getTitulo().trim().isEmpty() || tarefa.getDescricao() == null
+                    || tarefa.getDescricao().trim().isEmpty()) {
+                System.out.println(String.format("Adicionando tarefa:"));
+                Thread.sleep(2000);
+                System.out.println(String.format(
+                        "Erro ao adicionar tarefa.\nVerificar os campos 'Titulo' e 'Descrição', são campos obrigatórios."));
+                // System.out.println(String.format("\t------------------------\n"));
+                return;
+            }
+
+            // Incrementando o valor da Uuid
+            tarefa.setUuid(Tarefa.getProximoId());
+            Tarefa.incrementarProximoId();
+
+            System.out.println(String.format("Adicionando tarefa:"));
             Thread.sleep(2000);
+            System.out.println(tarefa.getTitulo());
             listaTarefas.add(tarefa);
-            System.out.println(String.format("Adicionada com sucesso!"));
+            Thread.sleep(2000);
+            System.out.println(String.format("Adicionada com sucesso! ID: %d", tarefa.getUuid()));
         } catch (InterruptedException e) {
+            System.out.println("A adição da tarefa foi interrompida.");
             Thread.currentThread().interrupt();
         } finally {
             System.out.println(String.format("\t------------------------\n"));
         }
-
     }
 
     // Exibição de Tarefas
     public void exibirTodasTarefas() {
         System.out.println(String.format("\t--- Lista de Tarefas ---"));
-        if (listaTarefas.isEmpty()) {
-            System.out.println(String.format("A Lista de tarefas está vazia."));
-            return;
-        }
+
         try {
-            Thread.sleep(1000);
+            System.out.println("Processando...");
+            Thread.sleep(2000);
+            if (listaTarefas.isEmpty()) {
+                System.out.println(String.format("A Lista de tarefas está vazia."));
+                // System.out.println(String.format("\t------------------------\n"));
+                return;
+            }
             for (Tarefa tarefa : listaTarefas) {
                 System.out.println(String.format(
                         "ID: %d\nTitulo: %s\nDescrição: %s\nData de Vencimento: %d\nPrioridade: %s\nStatus: %s\n",

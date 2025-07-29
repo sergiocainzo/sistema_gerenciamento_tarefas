@@ -15,12 +15,12 @@ public class Tarefa {
 
     // Construtor
     public Tarefa(String titulo, String descricao, int dataVencimento) {
-        this.setUuid(proximoID++);
+        this.setUuid(0);
         this.setTitulo(titulo);
         this.setDescricao(descricao);
         this.setDataVencimento(dataVencimento);
-        this.setPrioridade(prioridade.MEDIA);
-        this.setStatus(status.PENDENTE);
+        this.setPrioridade(Prioridade.MEDIA);
+        this.setStatus(Status.PENDENTE);
     }
 
     // Metodos Getter and Setter
@@ -70,6 +70,20 @@ public class Tarefa {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public static long getProximoId() {
+        return proximoID;
+    }
+
+    public static void incrementarProximoId() {
+        proximoID++;
+    }
+
+    public static void descrementarProximoId() {
+        if (proximoID > 1) {
+            proximoID--;
+        }
     }
 
     // Metodos Personalizados
