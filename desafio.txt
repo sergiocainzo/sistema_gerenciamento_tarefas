@@ -7,17 +7,20 @@ Requisitos Funcionais:
 Seu sistema deve ser capaz de:
 
 Criar Tarefa: Adicionar uma nova tarefa com os seguintes dados:
-ID: Gerado automaticamente (ex: UUID ou um contador sequencial).
-Título: Texto curto que descreve a tarefa (obrigatório).
-Descrição: Texto mais detalhado sobre a tarefa (opcional).
-Data de Vencimento: Data limite para a conclusão da tarefa (opcional).
-Prioridade: Nível de importância (ex: BAIXA, MÉDIA, ALTA - use um enum). Padrão: MÉDIA.
-Status: Situação atual da tarefa (ex: PENDENTE, EM_ANDAMENTO, CONCLUIDA - use um enum). Padrão: PENDENTE.
+*ID:* Gerado automaticamente (ex: UUID ou um contador sequencial).
+*Título:* Texto curto que descreve a tarefa (obrigatório).
+*Descrição:* Texto mais detalhado sobre a tarefa (opcional).
+*Data de Vencimento:* Data limite para a conclusão da tarefa (opcional).
+*Prioridade:* Nível de importância (ex: BAIXA, MÉDIA, ALTA - use um enum). Padrão: MÉDIA.
+*Status:* Situação atual da tarefa (ex: PENDENTE, EM_ANDAMENTO, CONCLUIDA - use um enum). Padrão: PENDENTE.
 
 
 Listar Todas as Tarefas: Retornar uma lista de todas as tarefas cadastradas.
+
 Buscar Tarefa por ID: Retornar os detalhes de uma tarefa específica, dado seu ID.
+
 Atualizar Tarefa: Modificar os dados de uma tarefa existente, dado seu ID. Os campos podem ser atualizados individualmente ou em conjunto.
+
 Excluir Tarefa: Remover uma tarefa do sistema, dado seu ID.
 
 

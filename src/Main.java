@@ -9,15 +9,29 @@ public class Main {
         Tarefa terafa3 = new Tarefa(null,"Teste de verificação de tarefas.",2);
         Tarefa terafa4 = new Tarefa("Teste 4","Teste de verificação de tarefas.",10);
 
+        // Inicio dos testes
 
-        lista.exibirTodasTarefas();
-        lista.adicionarTarefa(terafa);
+        // Exibir lista
+        //lista.exibirTodasTarefas();
+
+        //Adicionando Tarefas (Com Problema | Com Sucesso)
+        //lista.adicionarTarefa(terafa);
         lista.adicionarTarefa(terafa2);
         //lista.adicionarTarefa(terafa3);
         //lista.adicionarTarefa(terafa4);
-        lista.exibirTodasTarefas();
+
+        // Exibindo lista atualizada.
+        //lista.exibirTodasTarefas();
+
+        // Realizando pesquisa por ID (Com problema | Com sucesso)
         //lista.buscarPorId(3);
         //lista.buscarPorId(1);
+
+        // Atualizar dados da tarefa
+        lista.atualizarDadosDaTarefa(1);
+
+        // Atualização da lista
+        lista.exibirTodasTarefas();
 
 
     }

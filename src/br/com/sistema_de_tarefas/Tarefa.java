@@ -37,7 +37,11 @@ public class Tarefa {
     }
 
     public void setTitulo(String titulo) {
-        this.titulo = titulo;
+        if (titulo == null) {
+            this.titulo = titulo;
+        } else {
+            this.titulo = titulo.toUpperCase();
+        }
     }
 
     public String getDescricao() {
@@ -45,7 +49,11 @@ public class Tarefa {
     }
 
     public void setDescricao(String descricao) {
-        this.descricao = descricao;
+        if (descricao == null) {
+            this.descricao = descricao;
+        } else {
+            this.descricao = descricao.toUpperCase();
+        }
     }
 
     public int getDataVencimento() {
