@@ -1,23 +1,90 @@
 package br.com.sistema_de_tarefas;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class ListaTarefas {
     // Atributo
     List<Tarefa> listaTarefas;
+    Scanner scan = new Scanner(System.in);
 
     // Construtor
-    public ListaTarefas() {
+    public ListaTarefas(Scanner scan) {
         this.listaTarefas = new ArrayList<>();
+        this.scan = scan;
     }
 
     // Metodos Personalizados
+    // Remover tarefa da lista
+    public void removerTarefaPorId(long uuid) {
+        System.out.println("\t--- Excluir tarefa por ID ---");
+        Tarefa tarefaEncontrada = null;
+        try {
+            System.out.println("Buscando ...");
+            // delay de busca
+            Thread.sleep(1000);
+            if (listaTarefas.isEmpty()) {
+                System.out.println("A lista está vazia");
+            }
+
+            // Iterar na lista para localizar a ID
+            for (Tarefa tarefa : listaTarefas) {
+                if (tarefa.getUuid() == uuid) {
+                    // Atributo de armazenamento da ID localizada
+                    tarefaEncontrada = tarefa;
+                    // Parar a Iteração
+                    break;
+                }
+            }
+
+            if (tarefaEncontrada != null) {
+                System.out.println(String.format(
+                        "ID: %d\nTitulo: %s\nDescrição: %s\nData de Vencimento: %d\nPrioridade: %s\nStatus: %s\n",
+                        tarefaEncontrada.getUuid(), tarefaEncontrada.getTitulo(), tarefaEncontrada.getDescricao(),
+                        tarefaEncontrada.getDataVencimento(),
+                        tarefaEncontrada.getPrioridade(),
+                        tarefaEncontrada.getStatus()));
+                System.out.println("Deseja excluir esta tarefa? ");
+                System.out.println("S - Sim\nN - Não");
+                System.out.print("Opção: ");
+                String escolha = this.scan.nextLine().trim().toUpperCase();
+                while (!escolha.equals("S") && !escolha.equals("N")) {
+                    System.out.println("\nOpção inválida. Tente novamente\n");
+                    System.out.println(String.format(
+                            "ID: %d\nTitulo: %s\nDescrição: %s\nData de Vencimento: %d\nPrioridade: %s\nStatus: %s\n",
+                            tarefaEncontrada.getUuid(), tarefaEncontrada.getTitulo(), tarefaEncontrada.getDescricao(),
+                            tarefaEncontrada.getDataVencimento(),
+                            tarefaEncontrada.getPrioridade(),
+                            tarefaEncontrada.getStatus()));
+                    System.out.println("Deseja excluir esta tarefa? ");
+                    System.out.println("S - Sim\nN - Não");
+                    System.out.print("Opção: ");
+                    escolha = this.scan.nextLine().trim().toUpperCase();
+                }
+
+                if (escolha.equals("S")) {
+                    System.out.println("Excluindo tarefa...");
+                    Thread.sleep(1000);
+                    listaTarefas.remove(tarefaEncontrada);
+                    System.out.println(String.format("Tarefa com ID: %s, excluida com sucesso", uuid));
+                } else {
+                    System.out.println("Ação cancelada, tarefa não foi excluida.");
+                }
+
+            } else {
+                System.out.println(String.format("ID: %s, não localizada", uuid));
+            }
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            System.out.println(String.format("\t------------------------\n"));
+        }
+    }
+
     // Atualizar dados
     public void atualizarDadosDaTarefa(long uuid) {
-        Scanner scan = new Scanner(System.in);
         System.out.println("\t--- Atualizando Dados ---");
         Tarefa tarefaEncontrada = null;
 
@@ -48,7 +115,7 @@ public class ListaTarefas {
                     System.out.println("5 - Status");
                     System.out.println("0 - Sair");
                     System.out.print("Opção: ");
-                    String opcao = scan.nextLine().trim().replaceAll("\\s+", " ");
+                    String opcao = this.scan.nextLine().trim().replaceAll("\\s+", " ");
                     while (opcao.isBlank() || opcao == null || Integer.parseInt(opcao) > 5
                             || Integer.parseInt(opcao) < 0) {
                         System.out.println("\nOpção inválida, tente novamente.\n");
@@ -60,13 +127,13 @@ public class ListaTarefas {
                         System.out.println("5 - Status");
                         System.out.println("0 - Sair");
                         System.out.print("Opção: ");
-                        opcao = scan.nextLine().trim().replaceAll("\\s+", " ");
+                        opcao = this.scan.nextLine().trim().replaceAll("\\s+", " ");
                     }
                     switch (Integer.parseInt(opcao)) {
                         case 1:
                             System.out.println(String.format("Titulo atual: %s", tarefaEncontrada.getTitulo()));
                             System.out.print("Novo titulo: ");
-                            String novoTitulo = scan.nextLine().trim().replaceAll("\\s+", " ").toUpperCase();
+                            String novoTitulo = this.scan.nextLine().trim().replaceAll("\\s+", " ").toUpperCase();
                             tarefaEncontrada.setTitulo(novoTitulo);
 
                             // Mensagem de sucesso
@@ -77,13 +144,13 @@ public class ListaTarefas {
                             System.out.println("Deseja atualizar mais algum campo?");
                             System.out.println("S - Sim\nN - Não");
                             System.out.print("Escolha: ");
-                            String escolha = scan.nextLine().trim().toUpperCase();
+                            String escolha = this.scan.nextLine().trim().toUpperCase();
                             while (!escolha.equals("S") && !escolha.equals("N")) {
                                 System.out.println("Opção inválida, tente novamente");
                                 System.out.println("Deseja atualizar mais algum campo?");
                                 System.out.println("S - Sim\nN - Não");
                                 System.out.print("Escolha: ");
-                                escolha = scan.nextLine().trim().toUpperCase();
+                                escolha = this.scan.nextLine().trim().toUpperCase();
                             }
                             if (escolha.equals("S")) {
                                 System.out.println("Retornando para o menu principal");
@@ -96,7 +163,7 @@ public class ListaTarefas {
                         case 2:
                             System.out.println(String.format("Descrição atual: %s", tarefaEncontrada.getDescricao()));
                             System.out.print("Nova Descrição: ");
-                            String novaDescricao = scan.nextLine().trim().replaceAll("\\s+", " ").toUpperCase();
+                            String novaDescricao = this.scan.nextLine().trim().replaceAll("\\s+", " ").toUpperCase();
                             tarefaEncontrada.setDescricao(novaDescricao);
 
                             // Mensagem de sucesso
@@ -107,13 +174,13 @@ public class ListaTarefas {
                             System.out.println("Deseja atualizar mais algum campo?");
                             System.out.println("S - Sim\nN - Não");
                             System.out.print("Escolha: ");
-                            escolha = scan.nextLine().trim().toUpperCase();
+                            escolha = this.scan.nextLine().trim().toUpperCase();
                             while (!escolha.equals("S") && !escolha.equals("N")) {
                                 System.out.println("Opção inválida, tente novamente");
                                 System.out.println("Deseja atualizar mais algum campo?");
                                 System.out.println("S - Sim\nN - Não");
                                 System.out.print("Escolha: ");
-                                escolha = scan.nextLine().trim().toUpperCase();
+                                escolha = this.scan.nextLine().trim().toUpperCase();
                             }
                             if (escolha.equals("S")) {
                                 System.out.println("Retornando para o menu principal");
@@ -127,12 +194,12 @@ public class ListaTarefas {
                             System.out.println(String.format("Data de vencimento atual: %s",
                                     tarefaEncontrada.getDataVencimento()));
                             System.out.print("Nova data de vencimento: ");
-                            String novaData = scan.nextLine().trim();
+                            String novaData = this.scan.nextLine().trim();
 
                             while (novaData.isBlank() || !novaData.matches("\\d+") || Integer.parseInt(novaData) < 0) {
                                 System.out.println("Campo obrigatório e com um valor positivo.");
                                 System.out.print("Nova data de vencimento: ");
-                                novaData = scan.nextLine().trim();
+                                novaData = this.scan.nextLine().trim();
                             }
 
                             tarefaEncontrada.setDataVencimento(Integer.parseInt(novaData));
@@ -145,13 +212,13 @@ public class ListaTarefas {
                             System.out.println("Deseja atualizar mais algum campo?");
                             System.out.println("S - Sim\nN - Não");
                             System.out.print("Escolha: ");
-                            escolha = scan.nextLine().trim().toUpperCase();
+                            escolha = this.scan.nextLine().trim().toUpperCase();
                             while (!escolha.equals("S") && !escolha.equals("N")) {
                                 System.out.println("Opção inválida, tente novamente");
                                 System.out.println("Deseja atualizar mais algum campo?");
                                 System.out.println("S - Sim\nN - Não");
                                 System.out.print("Escolha: ");
-                                escolha = scan.nextLine().trim().toUpperCase();
+                                escolha = this.scan.nextLine().trim().toUpperCase();
                             }
                             if (escolha.equals("S")) {
                                 System.out.println("Retornando para o menu principal");
@@ -169,7 +236,7 @@ public class ListaTarefas {
                             System.out.println("2 - Media");
                             System.out.println("3 - Baixa");
                             System.out.print("Opção: ");
-                            String novaPrioridade = scan.nextLine().trim();
+                            String novaPrioridade = this.scan.nextLine().trim();
 
                             while (novaPrioridade.isBlank() || !novaPrioridade.matches("\\d+")
                                     || Integer.parseInt(novaPrioridade) < 1 || Integer.parseInt(novaPrioridade) > 3) {
@@ -179,7 +246,7 @@ public class ListaTarefas {
                                 System.out.println("2 - Media");
                                 System.out.println("3 - Baixa");
                                 System.out.print("Opção: ");
-                                novaPrioridade = scan.nextLine().trim();
+                                novaPrioridade = this.scan.nextLine().trim();
                             }
 
                             if (Integer.parseInt(novaPrioridade) == 1) {
@@ -198,13 +265,13 @@ public class ListaTarefas {
                             System.out.println("Deseja atualizar mais algum campo?");
                             System.out.println("S - Sim\nN - Não");
                             System.out.print("Escolha: ");
-                            escolha = scan.nextLine().trim().toUpperCase();
+                            escolha = this.scan.nextLine().trim().toUpperCase();
                             while (!escolha.equals("S") && !escolha.equals("N")) {
                                 System.out.println("Opção inválida, tente novamente");
                                 System.out.println("Deseja atualizar mais algum campo?");
                                 System.out.println("S - Sim\nN - Não");
                                 System.out.print("Escolha: ");
-                                escolha = scan.nextLine().trim().toUpperCase();
+                                escolha = this.scan.nextLine().trim().toUpperCase();
                             }
                             if (escolha.equals("S")) {
                                 System.out.println("Retornando para o menu principal");
@@ -221,7 +288,7 @@ public class ListaTarefas {
                             System.out.println("2 - Em Andamento");
                             System.out.println("3 - Concluida");
                             System.out.print("Opção: ");
-                            String novoStatus = scan.nextLine().trim();
+                            String novoStatus = this.scan.nextLine().trim();
 
                             while (novoStatus.isBlank() || !novoStatus.matches("\\d+")
                                     || Integer.parseInt(novoStatus) < 1 || Integer.parseInt(novoStatus) > 3) {
@@ -231,7 +298,7 @@ public class ListaTarefas {
                                 System.out.println("2 - Em Andamento");
                                 System.out.println("3 - Concluida");
                                 System.out.print("Opção: ");
-                                novoStatus = scan.nextLine().trim();
+                                novoStatus = this.scan.nextLine().trim();
                             }
 
                             if (Integer.parseInt(novoStatus) == 1) {
@@ -249,13 +316,13 @@ public class ListaTarefas {
                             System.out.println("Deseja atualizar mais algum campo?");
                             System.out.println("S - Sim\nN - Não");
                             System.out.print("Escolha: ");
-                            escolha = scan.nextLine().trim().toUpperCase();
+                            escolha = this.scan.nextLine().trim().toUpperCase();
                             while (!escolha.equals("S") && !escolha.equals("N")) {
                                 System.out.println("Opção inválida, tente novamente");
                                 System.out.println("Deseja atualizar mais algum campo?");
                                 System.out.println("S - Sim\nN - Não");
                                 System.out.print("Escolha: ");
-                                escolha = scan.nextLine().trim().toUpperCase();
+                                escolha = this.scan.nextLine().trim().toUpperCase();
                             }
                             if (escolha.equals("S")) {
                                 System.out.println("Retornando para o menu principal");
@@ -285,7 +352,6 @@ public class ListaTarefas {
             Thread.currentThread().interrupt();
         } finally {
             System.out.println(String.format("\t------------------------\n"));
-            scan.close();
         }
 
     }
